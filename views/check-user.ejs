@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="/login.css">
+</head>
+<body>
+    
+    <section class="contianer">
+
+        <div class="login-page-text-container">
+            <h1>Forgotten Your Password ?</h1>
+            <p>Please enter your username and email</p>
+          </div>
+          
+
+        <div class="login-page-form-container">
+            <% if(error){  %>
+            <p class="error-msg">&#128528; <%= error  %> </p>
+            <%  } %>
+            <% if(message){  %>
+            <p class="success-msg">&#128528; <%= message  %> </p>
+            <%  } %>
+            <form action="/user/check" method="post" id="login-form">
+                
+                <div class="form-input">
+                    <label for="username">@username</label>
+                    <input type="text" name="username" class="<%= error ? 'input-error' : '' %>" id="username" placeholder="enter username" required>
+                </div>
+
+                <div class="form-input">
+                    <label for="email">@email</label>
+                    <input type="email" name="email" class="<%= error ? 'input-error' : '' %>" id="email" placeholder="enter email" required>
+                </div>
+
+                <div class="form-button-container">
+                    <button type="submit">check</button>
+                </div>
+            </form>
+            
+        </div>
+
+    </section>
+
+
+</body>
+</html>

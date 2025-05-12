@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/admin.css">
+</head>
+<body>
+    
+            <div class="back-button-container">
+                <a href="/admin/dashboard" class="back-btn">Back</a>
+            </div>
+    <section class="container">
+
+        <div class="form-text-container">
+            <h1>Update User</h1>
+            <p class="success-msg"><%= message ? message : '' %></p>
+            <p class="error-msg"><%= error ? error : '' %></p>
+        </div>
+
+        <div class="form-container">
+
+            <form action="/admin/user/<%= user?._id %>/edit" method="post">
+
+                <div class="form-input">
+                    <label for="username">@username</label>
+                    <input type="text" placeholder="user_name" id="username" name="username" value="<%= user?.username %>" required>
+                </div>
+
+                <div class="form-input">
+                    <label for="email">@email</label>
+                    <input type="email" placeholder="email@k.com" id="email" name="email" value="<%= user?.email %>" required>
+                </div>
+
+                <div class="form-input">
+                    <label for="email">password</label>
+                    <input type="password" placeholder="password" id="password" name="password" >
+                    <p class="input-caption">Change <%= user.username %>'s password</p>
+                </div>
+
+                <div class="form-input">
+                    <label for="isAdmin">isAdmin</label>
+                    <select name="isAdmin" id="isAdmin" required>
+                                <option value="true" <%= user?.isAdmin === true ? 'selected' : '' %>>yes</option>
+                                <option value="false" <%= user?.isAdmin === false ? 'selected' : '' %>>not</option>
+                    </select>
+                </div>
+
+                <div class="form-submit-container">
+                    <button type="submit">Update</button>
+                </div>
+
+            </form>
+
+
+        </div>
+
+    </section>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/admin.css">
+</head>
+<body>
+    <section class="container">
+
+        <div class="admin-details">
+            <div class="admin-text">
+                <h1>Hi, <%= admin ? admin.username  : '' %></h1>
+                <p>Have a wonderful day!</p>
+            </div>
+            <div class="admin-action">
+                <button onclick="logout()">Logout</button>
+            </div>
+        </div>
+
+        <div class="users-search-bar-container">
+            <input type="text" name="search" id="search" placeholder="search user" required>
+            <button onclick="search()" class="search-btn">Search</button>
+        </div>
+
+        
+        <div class="all-users-table-container">
+            
+            <div class="table-text-container">
+                <p style="font-weight: 300;">showing <span><%= users ? users.length : '' %></span> users</p>
+                <p class="error-msg"><%= error ? error : '' %></p>
+                <p class="success-msg"><%= message ? message : '' %></p>
+                <button class="add-user-btn" onclick="addUser()">Add User +</button>
+            </div>
+
+            <div class="table-wrapper">
+            <table class="all-users-table">
+
+                <thead>
+                    <th>user Id</th>
+                    <th>username</th>
+                    <th>@email</th>
+                    <th>Actions</th>
+                </thead>
+
+                <tbody>
+                    <% users?.map((user)=>{ %>
+                    <tr>
+                        <td><%= user._id %></td>
+                        <td><%= user.username %></td>
+                        <td><%= user.email %></td>
+                        <td class="flex"><button onclick="editUser(`<%= user?._id  %>`)">Edit</button><button onclick="deleteUser(`<%= user?._id %>`)">Delete</button></td>
+                    </tr>
+                    <% }) %>
+                    
+<% if (users.length === 0) { %>
+  <tr>
+    <td colspan="5" style="text-align: center;">no users found!</td>
+  </tr>
+<% } %>
+                </tbody>
+
+            </table>
+        </div>
+
+        <div class="small-screen-all-users-card-container">
+            <% users?.map((user)=>{ %>
+            <div class="all-users-card">
+                <div class="card-head">
+                    <h6>@username: <%= user ? user.username : '' %> </h6>
+                </div>
+                <div class="card-body">
+                    <p>@email: <%= user ? user.email : '' %></p>
+                    <p>@userId: <%= user ? user._id : '' %></p>
+                    
+                    <div class="card-buttons-container">
+                        <button onclick="">edit</button>
+                        <button>delete</button>
+                    </div>
+                </div>
+            </div>
+            <% }) %>
+        </div>
+
+
+        </div>
+
+    </section>
+
+
+
+    <script>
+        function search () {
+            window.location.href = `/admin/dashboard/?search=${document.getElementById('search').value}`
+        }
+
+        const logout = ()=> { window.location.href = '/admin/logout' ; }
+
+        const addUser = () =>{
+            window.location.href = '/admin/create/user'
+        }
+
+        const editUser = (_id) =>{
+            window.location.href = `/admin/user/${_id}/edit`
+        }
+
+        const deleteUser = async (_id) =>{
+
+          let confirmed =   window.confirm("are you sure want to delete the user ?" )
+
+
+          if(confirmed){
+
+
+                let response = await fetch(`http://localhost:3000/admin/user/${_id}/delete`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                if(response.ok){
+                    alert('successfully deleted User');
+                    window.location.reload()
+                }else{
+                    alert("error occured");
+                }
+            }
+
+
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="/login.css">
+</head>
+<body>
+    
+    <section class="contianer">
+
+        <div class="login-page-text-container">
+            <h1>Admin Login</h1>
+            <p>Please login with your credentials to continue</p>
+          </div>
+          
+
+        <div class="login-page-form-container">
+            <% if(error){  %>
+            <p class="error-msg">&#128528; <%= error  %> </p>
+            <%  } %>
+            <form action="/admin/login" method="post" id="login-form">
+                <div class="form-input">
+                    <label for="email">@email</label>
+                    <input type="email" class="<%= error ? 'input-error' : '' %>" name="email" id="email" placeholder="me@gmail.com" required>
+                </div>
+                
+                <div class="form-input">
+                    <label for="password">Password</label>
+                    <input type="password" name="password" class="<%= error ? 'input-error' : '' %>" id="password" placeholder="you_can_trust_me" required>
+                </div>
+
+                <div class="form-button-container">
+                    <button type="submit">Login</button>
+                </div>
+            </form>
+            
+        </div>
+
+    </section>
+
+
+</body>
+</html>
