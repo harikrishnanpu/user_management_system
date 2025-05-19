@@ -4,10 +4,14 @@ const userRouter = require('./routers/userRouter');
 const mongoose = require('mongoose');
 const session = require('express-session');
 const adminRouter = require('./routers/adminRouter');
+const nocache = require('nocache');
 
 const app = express();
 const PORT = 3000;
 
+
+
+app.use(nocache());
 
 mongoose.connect('mongodb://localhost:27017/UserManagement').then(()=>{
     console.log("Mongodb Connected");
@@ -45,7 +49,7 @@ app.use((req, res) => {
 
 app.use((err,req,res,next)=>{
     if(err){
-        res.send("ERRORROROR")
+        res.send("Error Occured")
     }
 })
 
